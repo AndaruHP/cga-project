@@ -29,7 +29,9 @@ public class MazeGenerator : MonoBehaviour
         }
 
         GenerateMaze(null, _mazeGrid[0, 0]);
+        AddExit(); 
     }
+
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
     {
@@ -136,6 +138,34 @@ public class MazeGenerator : MonoBehaviour
             currentCell.ClearFrontWall();
             return;
         }
+    }
+
+    private void AddExit()
+    {
+        int side = Random.Range(0, 4); // 0=top, 1=bottom, 2=left, 3=right
+        MazeCell exitCell = null;
+
+        switch (side)
+        {
+            case 0: // Top (z = _mazeDepth - 1)
+                exitCell = _mazeGrid[Random.Range(0, _mazeWidth), _mazeDepth - 1];
+                exitCell.ClearFrontWall();
+                break;
+            case 1: // Bottom (z = 0)
+                exitCell = _mazeGrid[Random.Range(0, _mazeWidth), 0];
+                exitCell.ClearBackWall();
+                break;
+            case 2: // Left (x = 0)
+                exitCell = _mazeGrid[0, Random.Range(0, _mazeDepth)];
+                exitCell.ClearLeftWall();
+                break;
+            case 3: // Right (x = _mazeWidth - 1)
+                exitCell = _mazeGrid[_mazeWidth - 1, Random.Range(0, _mazeDepth)];
+                exitCell.ClearRightWall();
+                break;
+        }
+
+        Debug.Log("Exit created at: " + exitCell.transform.position);
     }
 
 }
