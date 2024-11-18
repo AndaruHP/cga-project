@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Drop
   - Player Drop
+  - Reach
   layers:
   - Default
   - TransparentFX

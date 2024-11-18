@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpFlashLight : MonoBehaviour
+public class PickUpBattery : MonoBehaviour
 {
     public GameObject PickUpText;
-    public GameObject FlashLightPlayerDrop;
     public GameObject HandUI;
     private bool inReach;
+    public GameObject flashlight;
 
     void Start()
     {
+        inReach = false;
         PickUpText.SetActive(false);
-        FlashLightPlayerDrop.SetActive(false);
         HandUI.SetActive(false);
+        flashlight = GameObject.Find("Flashlight Player");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,8 +41,11 @@ public class PickUpFlashLight : MonoBehaviour
     {
         if (inReach && Input.GetButtonDown("Interact"))
         {
+            // Memanggil fungsi RechargeBattery di skrip FlashlightTogglePlayer
+            flashlight.GetComponent<FlashlightTogglePlayer>().RechargeBattery();
+            PickUpText.SetActive(false);
+            inReach = false;
             HandUI.SetActive(false);
-            FlashLightPlayerDrop.SetActive(true);
             this.gameObject.SetActive(false);
         }
     }
