@@ -118,6 +118,7 @@
 -define:ENABLE_TILEMAP
 -define:ENABLE_TIMELINE
 -define:ENABLE_LEGACY_INPUT_MANAGER
+-define:CROSS_PLATFORM_INPUT
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.14f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
@@ -324,9 +325,10 @@
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.14f1/Editor/Data/NetStandard/compat/2.1.0/shims/netstandard/System.Xml.XPath.XDocument.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.14f1/Editor/Data/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.14f1/Editor/Data/NetStandard/ref/2.1.0/netstandard.dll"
--r:"C:/Users/perso/OneDrive/Documents/Unity/UAS/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
--r:"C:/Users/perso/OneDrive/Documents/Unity/UAS/Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/lib/ReportGenerator/ReportGeneratorMerged.dll"
--r:"C:/Users/perso/OneDrive/Documents/Unity/UAS/Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"C:/Users/perso/OneDrive/Documents/Github/cga-project/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
+-r:"C:/Users/perso/OneDrive/Documents/Github/cga-project/Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/lib/ReportGenerator/ReportGeneratorMerged.dll"
+-r:"C:/Users/perso/OneDrive/Documents/Github/cga-project/Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.EditorCoroutines.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Performance.Profile-Analyzer.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.PlasticSCM.Editor.ref.dll"
@@ -355,9 +357,13 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/MazeCell.cs"
 "Assets/MazeGenerator.cs"
-"Assets/Script/CameraMovement.cs"
-"Assets/Script/PlayerCam.cs"
-"Assets/Script/PlayerMov.cs"
+"Assets/Nokobot/Modern Guns - Handgun/_Demo Assets/SimpleShoot.cs"
+"Assets/Script/Gun.cs"
+"Assets/Script/Interfaces/IDamageable.cs"
+"Assets/Script/PlayerShoot.cs"
+"Assets/Script/Scriptable Objects/GunData.cs"
+"Assets/Script/Target.cs"
+"Assets/Script/WeaponSway.cs"
 -langversion:9.0
 
 /deterministic
