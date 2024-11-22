@@ -15,8 +15,8 @@ MonoBehaviour:
   name: HandGun
   damage: 100
   maxDistance: 200
-  currentAmmo: 24
-  magSize: 31
+  currentAmmo: 1
+  magSize: 1
   fireRate: 600
   reloadTime: 1.5
   reloading: 0

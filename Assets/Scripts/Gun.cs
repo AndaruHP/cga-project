@@ -28,7 +28,6 @@ public class Gun : MonoBehaviour
         gunData.reloading = true;
         yield return new WaitForSeconds(gunData.reloadTime);
         gunData.currentAmmo = gunData.magSize;
-
         gunData.reloading = false;
     }
 
@@ -49,6 +48,12 @@ public class Gun : MonoBehaviour
                 gunData.currentAmmo--;
                 timeSinceLastShot = 0;
                 OnGunShot();
+
+                // Jika ammo habis, hapus GameObject
+                if (gunData.currentAmmo <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
@@ -61,5 +66,6 @@ public class Gun : MonoBehaviour
 
     private void OnGunShot()
     {
+        // Tambahkan efek suara atau animasi tembakan jika diperlukan
     }
 }
