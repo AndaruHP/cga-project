@@ -2,36 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
     [SerializeField] GunData gunData;
     [SerializeField] Transform Muzzle;
+    public TextMeshProUGUI ammoText;
     float timeSinceLastShot;
+    AudioSource m_shootingSound;
+    
 
     private void Start()
     {
+        gunData.currentAmmo = 1; // Reset ammo ke 1 saat memulai scene
         PlayerShoot.shootInput += Shoot;
-        PlayerShoot.reloadInput += StartReload;
+        UpdateAmmoText();
     }
 
-    public void StartReload()
-    {
-        if (!gunData.reloading)
-        {
-            StartCoroutine(Reload());
-        }
-    }
-
-    private IEnumerator Reload()
-    {
-        gunData.reloading = true;
-        yield return new WaitForSeconds(gunData.reloadTime);
-        gunData.currentAmmo = gunData.magSize;
-        gunData.reloading = false;
-    }
-
-    private bool CanShoot() => !gunData.reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
+    private bool CanShoot() => timeSinceLastShot > 1f / (gunData.fireRate / 60f);
 
     public void Shoot()
     {
@@ -46,15 +35,20 @@ public class Gun : MonoBehaviour
                 }
 
                 gunData.currentAmmo--;
+                UpdateAmmoText();
                 timeSinceLastShot = 0;
                 OnGunShot();
+                
 
-                // Jika ammo habis, hapus GameObject
                 if (gunData.currentAmmo <= 0)
                 {
-                    Destroy(gameObject);
+                    Debug.Log("Out of Ammo!");
                 }
             }
+        }
+        else
+        {
+            Debug.Log("Cannot shoot. No ammo left.");
         }
     }
 
@@ -66,6 +60,30 @@ public class Gun : MonoBehaviour
 
     private void OnGunShot()
     {
-        // Tambahkan efek suara atau animasi tembakan jika diperlukan
+        if (m_shootingSound == null)
+        {
+            m_shootingSound = GetComponent<AudioSource>();
+        }
+        m_shootingSound.Play();
+    }
+
+
+    public void AddAmmo(int amount)
+    {
+        gunData.currentAmmo += amount;
+        Debug.Log("Picked up ammo! Current ammo: " + gunData.currentAmmo);
+        UpdateAmmoText();
+    }
+
+    private void UpdateAmmoText()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = $"{gunData.currentAmmo}";
+        }
+        else
+        {
+            Debug.LogWarning("Ammo Text is not assigned in the Inspector!");
+        }
     }
 }
