@@ -14,7 +14,6 @@ public class PickUpBattery : MonoBehaviour
         inReach = false;
         PickUpText.SetActive(false);
         HandUI.SetActive(false);
-        flashlight = GameObject.Find("Flashlight Player");
     }
 
     private void OnTriggerEnter(Collider other)
