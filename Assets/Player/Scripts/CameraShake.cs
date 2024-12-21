@@ -42,6 +42,16 @@ public class CameraShake : MonoBehaviour
         currentShakeMagnitude = magnitude;
     }
 
+    /// <summary>
+    /// Immediately stops any ongoing camera shake and resets the camera position.
+    /// </summary>
+    public void StopShake()
+    {
+        currentShakeDuration = 0f;
+        currentShakeMagnitude = 0f;
+        transform.localPosition = initialPosition;
+    }
+
     private void Update()
     {
         if (currentShakeDuration > 0)
@@ -55,8 +65,6 @@ public class CameraShake : MonoBehaviour
         else
         {
             // Reset to the initial position when shaking is done
-            currentShakeDuration = 0f;
-            currentShakeMagnitude = 0f;
             transform.localPosition = initialPosition;
         }
     }
