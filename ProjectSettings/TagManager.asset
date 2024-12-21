@@ -7,6 +7,11 @@ TagManager:
   - Drop
   - Player Drop
   - Reach
+  - Battery
+  - Ammo
+  - Floor
+  - Coin
+  - Monster
   layers:
   - Default
   - TransparentFX
