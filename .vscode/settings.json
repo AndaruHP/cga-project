@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "cga-project.sln"
+    "dotnet.defaultSolution": "cga-personal.sln"
 }
