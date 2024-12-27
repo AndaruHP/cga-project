@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour
     public TextMeshProUGUI ammoText;
     float timeSinceLastShot;
     AudioSource m_shootingSound;
-    
+
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class Gun : MonoBehaviour
                 UpdateAmmoText();
                 timeSinceLastShot = 0;
                 OnGunShot();
-                
+
 
                 if (gunData.currentAmmo <= 0)
                 {
@@ -85,5 +85,10 @@ public class Gun : MonoBehaviour
         {
             Debug.LogWarning("Ammo Text is not assigned in the Inspector!");
         }
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return gunData.currentAmmo;
     }
 }
