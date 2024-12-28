@@ -64,10 +64,11 @@ public class UnlockableDoor : MonoBehaviour
             isUnlocked = true;
             Debug.Log("Door Unlocked!");
             // Play unlock animation if available
-            if (animator != null)
-            {
-                animator.SetTrigger("Unlock");
-            }
+              if (animator != null)
+                {
+                    animator.SetTrigger("Unlock"); // Ensure 'Unlock' matches the Animator parameter
+                    Debug.Log("Animator Trigger 'Unlock' set.");
+                }
             // Optionally, disable the collider to allow passage
             GetComponent<Collider>().enabled = false;
         }
