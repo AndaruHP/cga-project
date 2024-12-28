@@ -28,8 +28,13 @@ public class MazeSpawner : MonoBehaviour
     public float CellHeight = 5;
     public bool AddGaps = true;
     public GameObject GoalPrefab = null;
+    public GameObject AmmoPrefab;
+    public GameObject BatteryPrefab;
+    public int NumberOfAmmo = 3;
+    public int NumberOfBatteries = 3;
 
     private BasicMazeGenerator mMazeGenerator = null;
+    private ItemSpawner itemSpawner;
 
     void Start()
     {
@@ -131,6 +136,9 @@ public class MazeSpawner : MonoBehaviour
         
         // After all maze elements are created
         GetComponent<NavMeshBuilder>()?.RebuildNavMesh();
+
+        // After generating the maze and walls, spawn items
+        SpawnItems();
     }
 
     /// <summary>
@@ -223,5 +231,16 @@ public class MazeSpawner : MonoBehaviour
         }
         
         obstacle.center = Vector3.zero;
+    }
+
+    private void SpawnItems()
+    {
+        itemSpawner = gameObject.AddComponent<ItemSpawner>();
+        itemSpawner.ammoPrefab = AmmoPrefab;
+        itemSpawner.batteryPrefab = BatteryPrefab;
+        itemSpawner.numberOfAmmo = NumberOfAmmo;
+        itemSpawner.numberOfBatteries = NumberOfBatteries;
+        
+        itemSpawner.SpawnItems(Rows, Columns, CellWidth, CellHeight, AddGaps);
     }
 }

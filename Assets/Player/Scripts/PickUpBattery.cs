@@ -1,19 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpBattery : MonoBehaviour
 {
-    // public GameObject PickUpText;
-    public GameObject grabCrosshair;
+    [SerializeField] private GameObject flashlight;
     private bool inReach;
-    public GameObject flashlight;
 
     void Start()
     {
         inReach = false;
-        // PickUpText.SetActive(false);
-        grabCrosshair.SetActive(false);
+        if (UIManager.Instance != null && UIManager.Instance.grabCrosshair != null)
+        {
+            UIManager.Instance.grabCrosshair.SetActive(false);
+        }
+
+        if (flashlight == null)
+        {
+            flashlight = GameObject.Find("Flashlight Player");
+            if (flashlight == null)
+            {
+                Debug.LogWarning("Flashlight Player was not assigned in inspector, attempting to find in scene.");
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,8 +28,10 @@ public class PickUpBattery : MonoBehaviour
         if (other.gameObject.CompareTag("Reach"))
         {
             inReach = true;
-            // PickUpText.SetActive(true);
-            grabCrosshair.SetActive(true);
+            if (UIManager.Instance != null && UIManager.Instance.grabCrosshair != null)
+            {
+                UIManager.Instance.grabCrosshair.SetActive(true);
+            }
         }
     }
 
@@ -31,8 +40,10 @@ public class PickUpBattery : MonoBehaviour
         if (other.gameObject.CompareTag("Reach"))
         {
             inReach = false;
-            grabCrosshair.SetActive(false);
-            // PickUpText.SetActive(false);
+            if (UIManager.Instance != null && UIManager.Instance.grabCrosshair != null)
+            {
+                UIManager.Instance.grabCrosshair.SetActive(false);
+            }
         }
     }
 
@@ -40,12 +51,16 @@ public class PickUpBattery : MonoBehaviour
     {
         if (inReach && Input.GetKeyDown(KeyCode.E))
         {
-            // Memanggil fungsi RechargeBattery di skrip FlashlightTogglePlayer
-            flashlight.GetComponent<FlashlightTogglePlayer>().RechargeBattery();
-            // PickUpText.SetActive(false);
-            inReach = false;
-            grabCrosshair.SetActive(false);
-            this.gameObject.SetActive(false);
+            if (flashlight != null)
+            {
+                flashlight.GetComponent<FlashlightTogglePlayer>().RechargeBattery();
+                if (UIManager.Instance != null && UIManager.Instance.grabCrosshair != null)
+                {
+                    UIManager.Instance.grabCrosshair.SetActive(false);
+                }
+                inReach = false;
+                this.gameObject.SetActive(false);
+            }
         }
     }
 }

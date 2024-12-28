@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RandomizeBattery : MonoBehaviour
 {
-    [SerializeField] private int numberOfObjectsToRender = 2; // Jumlah objek yang akan dirender
+    [SerializeField] private int numberOfObjectsToRender = 3; // Jumlah objek yang akan dirender
     private List<GameObject> batteryObjects = new List<GameObject>();
 
     private void Start()
