@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 1427732662}
   - component: {fileID: 1427732661}
   m_Layer: 0
-  m_Name: Play
+  m_Name: Retry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -834,7 +834,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1241355532}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: Retry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
