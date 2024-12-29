@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.AI;
+
 public enum AntagonisMove
 {
     Patrol, Chase, Wait
 }
+
 public class Antagonis : MonoBehaviour
 {
     public bool canSeePlayer, isAttack, isDeath;
@@ -31,12 +30,12 @@ public class Antagonis : MonoBehaviour
         nma = GetComponent<NavMeshAgent>();
         StartCoroutine(FOVRoutine());
     }
+
     private void Update()
     {
         if (isDeath)
         {
             nma.isStopped = true;
-            animator.Play("Death");
             return;
         }
 
@@ -56,6 +55,7 @@ public class Antagonis : MonoBehaviour
 
         animator.SetFloat("Walk", animationMoveValue);
         animator.SetBool("Looking Around", antagonisMove == AntagonisMove.Wait);
+
         switch (antagonisMove)
         {
             case AntagonisMove.Chase:
@@ -80,7 +80,7 @@ public class Antagonis : MonoBehaviour
                 if (nma.destination != target.position) nma.destination = target.position;
                 break;
             case AntagonisMove.Patrol:
-                if (nma.destination != Patrol[patrolIndex].position) nma.destination = (Patrol[patrolIndex].position);
+                if (nma.destination != Patrol[patrolIndex].position) nma.destination = Patrol[patrolIndex].position;
                 break;
             case AntagonisMove.Wait:
                 if (nma.destination != transform.position) nma.destination = transform.position;
@@ -95,7 +95,7 @@ public class Antagonis : MonoBehaviour
             isAttack = true;
             nma.isStopped = true;
             currentAttackCooldown = attackCooldown;
-            animator.Play("Attack");
+            animator.SetTrigger("AttackTrigger"); // Gunakan trigger untuk memulai animasi serangan
 
             // Cari pemain di sekitar musuh
             Collider[] colliders = Physics.OverlapSphere(transform.position, 1f, playerMask); // Periksa dalam jangkauan serangan
@@ -111,7 +111,6 @@ public class Antagonis : MonoBehaviour
             StartCoroutine(AttackComplete());
         }
     }
-
 
     private IEnumerator AttackComplete()
     {
@@ -146,14 +145,7 @@ public class Antagonis : MonoBehaviour
         nma.speed = aTGData.chaseSpeed;
         v_radius = aTGData.radius * 0.65f;
 
-        // Cek jarak untuk serangan
-        // if (Vector3.Distance(transform.position, target.position) < 2f && !isAttack && currentAttackCooldown <= 0)
-        // {
-        //     TryAttack();
-        //     return;
-        // }
-
-        if (canSeePlayer == false)
+        if (!canSeePlayer)
         {
             if (rateChasing < aTGData.chaseTime)
             {
@@ -200,6 +192,7 @@ public class Antagonis : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 1f);
     }
+
     private void FieldOfViewCheck()
     {
         if (isDeath || isAttack) return;
@@ -258,9 +251,32 @@ public class Antagonis : MonoBehaviour
 
     public void OnDeath()
     {
+        if (isDeath) return;
+
+        Debug.Log("Soldier has died. Playing Death animation.");
+
         isDeath = true;
         nma.isStopped = true;
-        animator.Play("Death");
+        animator.SetBool("isDeath", true);
+        animator.SetBool("isAttack", false);
+        animator.SetFloat("Walk", 0f);
+        animator.SetBool("Looking Around", false);
+
+        // Memulai coroutine untuk menunggu hingga animasi Death selesai sebelum menghancurkan GameObject
+        StartCoroutine(HandleDeath());
+    }
+
+    private IEnumerator HandleDeath()
+    {
+        // Menunggu durasi animasi Death
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        float deathDuration = stateInfo.length;
+
+        // Tambahkan buffer waktu jika diperlukan
+        yield return new WaitForSeconds(deathDuration + 0.5f);
+
+        Debug.Log("Death animation completed. Destroying GameObject.");
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
