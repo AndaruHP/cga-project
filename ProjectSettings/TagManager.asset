@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Battery
+  - Ammo
+  - Reach
+  - Player Drop
+  - Floor
+  - Coin
+  - AI
   layers:
   - Default
   - TransparentFX
