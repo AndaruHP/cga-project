@@ -35,6 +35,7 @@ public class MazeSpawner : MonoBehaviour
 
     private BasicMazeGenerator mMazeGenerator = null;
     private ItemSpawner itemSpawner;
+    public GameObject ExitDoorPrefab;
 
     void Start()
     {
@@ -139,11 +140,32 @@ public class MazeSpawner : MonoBehaviour
 
         // After generating the maze and walls, spawn items
         SpawnItems();
+
+        // Generate Exit
+        InstantiateExitDoor();
     }
 
     /// <summary>
     /// Removes specific outer walls to create exit(s).
     /// </summary>
+    /// 
+
+    void InstantiateExitDoor()
+    {
+        int exitRow = Rows - 1;
+        int exitColumn = Columns - 1;
+
+        float x = exitColumn * (CellWidth + (AddGaps ? 0.2f : 0));
+        float z = exitRow * (CellHeight + (AddGaps ? 0.2f : 0));
+
+        Vector3 exitPosition = new Vector3(36, 2, 38);
+
+        GameObject exitDoor = Instantiate(ExitDoorPrefab, exitPosition, Quaternion.identity) as GameObject;
+        exitDoor.transform.parent = transform;
+
+        exitDoor.transform.Rotate(0, 0, 0);
+    }
+
     private void RemoveOuterWalls()
     {
         // Membuat exit di pojok kanan atas maze

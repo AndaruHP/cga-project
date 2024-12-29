@@ -4,13 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Battery
-  - Ammo
+  - AI
   - Reach
-  - Player Drop
   - Floor
   - Coin
-  - AI
+  - Ammo
+  - Battery
+  - Player Drop
+  - Key
+  - ExitDoor
   layers:
   - Default
   - TransparentFX
