@@ -739,6 +739,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1773623360729482, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2028971115}
+    - targetCorrespondingSourceObject: {fileID: 1773623360729482, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2028971117}
     - targetCorrespondingSourceObject: {fileID: 1130725078037024, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 240295171}
@@ -2016,6 +2019,7 @@ MonoBehaviour:
   BatteryPrefab: {fileID: 203617855419462682, guid: 93e09499147e5bd4ba827c7be0399428, type: 3}
   NumberOfAmmo: 8
   NumberOfBatteries: 6
+  KeyPrefab: {fileID: 7653135138815932766, guid: 13520cd36cb127b4fa48b6063fb9d280, type: 3}
   ExitDoorPrefab: {fileID: 0}
 --- !u!1 &991346060
 GameObject:
@@ -2046,7 +2050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8697396ff3cad42877f65506617a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfObjectsToRender: 3
+  numberOfObjectsToRender: 6
 --- !u!4 &991346062
 Transform:
   m_ObjectHideFlags: 0
@@ -2243,6 +2247,10 @@ PrefabInstance:
       value: Key
       objectReference: {fileID: 0}
     - target: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
       propertyPath: m_TagString
       value: Key
       objectReference: {fileID: 0}
@@ -2377,8 +2385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4aa53b114fe21343a742ff7d8805840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabCrosshair: {fileID: 1062004870}
-  inventory: {fileID: 0}
 --- !u!1 &1062004870
 GameObject:
   m_ObjectHideFlags: 0
@@ -3231,8 +3237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80343f1311257674db01dad60862261b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabCrosshair: {fileID: 0}
-  inventory: {fileID: 0}
+  grabCrosshair: {fileID: 1062004870}
+  inventory: {fileID: 2028971117}
 --- !u!114 &1372387530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4850,7 +4856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d87fecbf09c1544a9c333ff71f62b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfObjectsToRender: 2
+  numberOfObjectsToRender: 6
 --- !u!4 &1711950843
 Transform:
   m_ObjectHideFlags: 0
@@ -5301,6 +5307,18 @@ MonoBehaviour:
   energyDrainRate: 20
   energyRegenRate: 3
   canRecharge: 1
+--- !u!114 &2028971117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028971109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34fae553f2f090e448927a30010cf79f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2032555044
 GameObject:
   m_ObjectHideFlags: 0

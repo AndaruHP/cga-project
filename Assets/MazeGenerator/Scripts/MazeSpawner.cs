@@ -30,8 +30,9 @@ public class MazeSpawner : MonoBehaviour
     public GameObject GoalPrefab = null;
     public GameObject AmmoPrefab;
     public GameObject BatteryPrefab;
-    public int NumberOfAmmo = 3;
-    public int NumberOfBatteries = 3;
+    public int NumberOfAmmo = 8;
+    public int NumberOfBatteries = 6;
+    public GameObject KeyPrefab;
 
     private BasicMazeGenerator mMazeGenerator = null;
     private ItemSpawner itemSpawner;
@@ -260,6 +261,7 @@ public class MazeSpawner : MonoBehaviour
         itemSpawner = gameObject.AddComponent<ItemSpawner>();
         itemSpawner.ammoPrefab = AmmoPrefab;
         itemSpawner.batteryPrefab = BatteryPrefab;
+        itemSpawner.keyPrefab = KeyPrefab;
         itemSpawner.numberOfAmmo = NumberOfAmmo;
         itemSpawner.numberOfBatteries = NumberOfBatteries;
         

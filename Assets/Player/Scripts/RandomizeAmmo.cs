@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RandomizeAmmo : MonoBehaviour
 {
-    [SerializeField] private int numberOfObjectsToRender = 3; // Jumlah objek yang akan dirender
+    [SerializeField] private int numberOfObjectsToRender = 10; // Jumlah objek yang akan dirender
     private List<GameObject> boxAmmoObjects = new List<GameObject>();
 
     private void Start()
