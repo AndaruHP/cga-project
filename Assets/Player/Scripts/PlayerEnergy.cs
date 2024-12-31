@@ -9,22 +9,28 @@ public class PlayerEnergy : MonoBehaviour
     public float energyDrainRate = 20f;
     public float energyRegenRate = 3f;
     public bool canRecharge = true;
+    private FirstPersonMovement movement;
 
     void Start()
     {
         currentEnergy = maxEnergy;
+        movement = GetComponent<FirstPersonMovement>();
     }
 
     void Update()
     {
-        FirstPersonMovement movement = GetComponent<FirstPersonMovement>();
-        if (movement != null && movement.IsRunning)
+        if (movement != null)
         {
-            DrainEnergy();
-        }
-        else if (canRecharge)
-        {
-            RechargeEnergy();
+            if (movement.IsRunning && currentEnergy > 0)
+            {
+                DrainEnergy();
+            }
+            else if (canRecharge && currentEnergy < maxEnergy)
+            {
+                RechargeEnergy();
+            }
+
+            movement.canRun = currentEnergy > 0;
         }
     }
 
