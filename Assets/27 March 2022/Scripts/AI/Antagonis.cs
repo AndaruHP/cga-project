@@ -250,33 +250,43 @@ public class Antagonis : MonoBehaviour
     }
 
     public void OnDeath()
-    {
-        if (isDeath) return;
+        {
+            if (isDeath) return;
 
-        Debug.Log("Soldier has died. Playing Death animation.");
+            Debug.Log("Soldier has died. Playing Death animation.");
 
-        isDeath = true;
-        nma.isStopped = true;
-        animator.SetBool("isDeath", true);
-        animator.SetBool("isAttack", false);
-        animator.SetFloat("Walk", 0f);
-        animator.SetBool("Looking Around", false);
+            isDeath = true;
+            nma.isStopped = true;
+            animator.SetBool("isDeath", true);
+            animator.SetBool("isAttack", false);
+            animator.SetFloat("Walk", 0f);
+            animator.SetBool("Looking Around", false);
 
-        // Memulai coroutine untuk menunggu hingga animasi Death selesai sebelum menghancurkan GameObject
-        StartCoroutine(HandleDeath());
-    }
+            StartCoroutine(HandleDeath());
+        }
 
     private IEnumerator HandleDeath()
     {
-        // Menunggu durasi animasi Death
+        // Wait for death animation
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         float deathDuration = stateInfo.length;
-
-        // Tambahkan buffer waktu jika diperlukan
         yield return new WaitForSeconds(deathDuration + 0.5f);
 
-        Debug.Log("Death animation completed. Destroying GameObject.");
-        Destroy(gameObject);
+        // Instead of destroying, deactivate the object
+        gameObject.SetActive(false);
+    
+        // Reset state for future respawn
+        isDeath = false;
+    
+        // Reset health through Target component
+        Target target = GetComponent<Target>();
+        if (target != null)
+        {
+            target.ResetHealth();
+        }
+    
+        // Notify spawn manager to start respawn timer
+        MonsterSpawnManager.Instance.StartRespawnTimer(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

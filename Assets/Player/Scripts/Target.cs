@@ -35,4 +35,9 @@ public class Target : MonoBehaviour, IDamageable
             antagonis.OnDeath(); // Memicu metode OnDeath pada Antagonis.cs
         }
     }
+
+    public void ResetHealth()
+    {
+        health = 100f;
+    }
 }
