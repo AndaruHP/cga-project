@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UnlockableDoor : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class UnlockableDoor : MonoBehaviour
         grabCrosshair.SetActive(false);
         animator = GetComponent<Animator>();
 
-        // Find the PlayerInventory script in the scene
+        // Cari skrip PlayerInventory di scene
         inventory = FindObjectOfType<PlayerInventory>();
         if (inventory == null)
         {
@@ -30,6 +30,7 @@ public class UnlockableDoor : MonoBehaviour
         {
             inReach = true;
             grabCrosshair.SetActive(true);
+            Debug.Log("Player is in reach of the door.");
         }
     }
 
@@ -39,6 +40,7 @@ public class UnlockableDoor : MonoBehaviour
         {
             inReach = false;
             grabCrosshair.SetActive(false);
+            Debug.Log("Player left the reach of the door.");
         }
     }
 
@@ -63,14 +65,56 @@ public class UnlockableDoor : MonoBehaviour
         {
             isUnlocked = true;
             Debug.Log("Door Unlocked!");
-            // Play unlock animation if available
-              if (animator != null)
-                {
-                    animator.SetTrigger("Unlock"); // Ensure 'Unlock' matches the Animator parameter
-                    Debug.Log("Animator Trigger 'Unlock' set.");
-                }
-            // Optionally, disable the collider to allow passage
-            GetComponent<Collider>().enabled = false;
+            if (animator != null)
+            {
+                animator.SetTrigger("Unlock"); 
+                Debug.Log("Animator Trigger 'Unlock' set.");
+            }
+           
+            // Nonaktifkan collider untuk memungkinkan passage
+            Collider doorCollider = GetComponent<Collider>();
+            if (doorCollider != null)
+            {
+                doorCollider.enabled = false;
+                Debug.Log("Door collider disabled.");
+            }
+            else
+            {
+                Debug.LogWarning("No Collider component found on the door.");
+            }
+
+            // Perbarui scene terakhir di GameManager
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.UpdateLastScene();
+            }
+            else
+            {
+                Debug.LogError("GameManager instance not found.");
+            }
+
+            // Mulai coroutine untuk memuat scene berikutnya setelah 5 detik
+            StartCoroutine(LoadNextSceneAfterDelay(5f));
+        }
+    }
+
+    IEnumerator LoadNextSceneAfterDelay(float delay)
+    {
+        Debug.Log($"Starting coroutine to load next scene after {delay} seconds.");
+        yield return new WaitForSeconds(delay);
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log($"Current Scene Index: {currentSceneIndex}");
+
+        // Cek apakah indeks berikutnya valid
+        if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+        {
+            Debug.Log($"Loading next scene at index {currentSceneIndex + 1}.");
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
+        else
+        {
+            Debug.LogError("Next scene index is out of range. Please check Build Settings.");
         }
     }
 }

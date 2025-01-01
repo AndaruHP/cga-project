@@ -20,9 +20,28 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
+            Die();
         }
+    }
+
+    void Die()
+    {
+        Debug.Log("Player died.");
+
+        // Pastikan GameManager tidak null
+        if (GameManager.Instance != null)
+        {
+            // Perbarui scene terakhir sebelum memuat Game Over
+            GameManager.Instance.UpdateLastScene();
+            // Jangan ubah lastSceneIndex saat mati sehingga Retry akan kembali ke scene tempat mati
+        }
+        else
+        {
+            Debug.LogError("GameManager instance not found.");
+        }
+
+        // Muat scene Game Over (Pastikan build index atau nama scene sesuai)
+        SceneManager.LoadScene("Game Over"); // Atau gunakan build index: SceneManager.LoadScene(4);
     }
 
 

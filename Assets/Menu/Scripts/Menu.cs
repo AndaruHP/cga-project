@@ -10,22 +10,39 @@ public class Menu : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
+
     public void Play()
     {
-        // we set + 1 because in our setting we have two scenes, the first one is the menu and the second one is the game
-        // and its order is 0 then 1
+        // Pastikan GameManager tidak null sebelum berpindah scene
+        if (GameManager.Instance != null)
+        {
+            // Perbarui scene terakhir sebelum memuat scene berikutnya
+            GameManager.Instance.UpdateLastScene();
+        }
+        else
+        {
+            Debug.LogError("GameManager instance not found.");
+        }
+
+        // Muat scene berikutnya (Test 3) berdasarkan build index
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Retry()
     {
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.LoadLastScene();
+        }
+        else
+        {
+            Debug.LogError("GameManager instance not found.");
+        }
     }
 
     public void Quit()
     {
-        // this only work in the build version of the game
+        // Ini hanya berfungsi di versi build game
         Debug.Log("Player has quit the game");
         Application.Quit();
     }
