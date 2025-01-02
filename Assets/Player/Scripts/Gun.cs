@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -11,7 +8,12 @@ public class Gun : MonoBehaviour
     public TextMeshProUGUI ammoText;
     float timeSinceLastShot;
     AudioSource m_shootingSound;
-
+    
+    private void Awake()
+    {
+        // Make the Gun persist between scenes
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
@@ -20,10 +22,19 @@ public class Gun : MonoBehaviour
         UpdateAmmoText();
     }
 
-    private bool CanShoot() => timeSinceLastShot > 1f / (gunData.fireRate / 60f);
+    private void OnDestroy()
+    {
+        // Clean up event subscription when destroyed
+        PlayerShoot.shootInput -= Shoot;
+    }
+
+    private bool CanShoot() => !Pause.paused && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
 
     public void Shoot()
     {
+        // Don't shoot if game is paused
+        if (Pause.paused) return;
+
         if (gunData.currentAmmo > 0)
         {
             if (CanShoot())
@@ -39,7 +50,6 @@ public class Gun : MonoBehaviour
                 timeSinceLastShot = 0;
                 OnGunShot();
 
-
                 if (gunData.currentAmmo <= 0)
                 {
                     Debug.Log("Out of Ammo!");
@@ -54,8 +64,12 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        timeSinceLastShot += Time.deltaTime;
-        Debug.DrawRay(Muzzle.position, Muzzle.forward);
+        // Don't update timer if game is paused
+        if (!Pause.paused)
+        {
+            timeSinceLastShot += Time.deltaTime;
+            Debug.DrawRay(Muzzle.position, Muzzle.forward);
+        }
     }
 
     private void OnGunShot()
@@ -66,7 +80,6 @@ public class Gun : MonoBehaviour
         }
         m_shootingSound.Play();
     }
-
 
     public void AddAmmo(int amount)
     {

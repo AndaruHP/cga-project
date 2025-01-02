@@ -9,9 +9,15 @@ public class PlayerShoot : MonoBehaviour
     public static Action reloadInput;
     [SerializeField] private KeyCode reloadKey;
 
+    private void Awake()
+    {
+        // Make the PlayerShoot persist between scenes
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Update()
     {
-        if (!Pause.paused) // Pastikan hanya bisa menembak saat game tidak dalam mode pause
+        if (!Pause.paused) // Only allow shooting when game is not paused
         {
             if (Input.GetMouseButton(0))
                 shootInput?.Invoke();
@@ -19,5 +25,12 @@ public class PlayerShoot : MonoBehaviour
             if (Input.GetKeyDown(reloadKey))
                 reloadInput?.Invoke();
         }
+    }
+
+    private void OnDestroy()
+    {
+        // Clean up static events when destroyed
+        shootInput = null;
+        reloadInput = null;
     }
 }
