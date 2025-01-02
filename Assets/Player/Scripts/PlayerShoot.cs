@@ -11,10 +11,13 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
-            shootInput?.Invoke();
+        if (!Pause.paused) // Pastikan hanya bisa menembak saat game tidak dalam mode pause
+        {
+            if (Input.GetMouseButton(0))
+                shootInput?.Invoke();
 
-        if (Input.GetKeyDown(KeyCode.R))
-            reloadInput?.Invoke();
+            if (Input.GetKeyDown(reloadKey))
+                reloadInput?.Invoke();
+        }
     }
 }
