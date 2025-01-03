@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test 5.unity
     guid: 34bec3a90163a2e4d8857c7560079235
   - enabled: 1
+    path: Assets/Scenes/Credit.unity
+    guid: 06deac83481626e4a82dde7001b2482a
+  - enabled: 1
     path: Assets/Scenes/Game Over.unity
     guid: 0b9eea125ec239c4499b4c66287ea373
   - enabled: 0
