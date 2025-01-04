@@ -5759,6 +5759,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 114101202544116884, guid: 0ddea81a21def2441b61569e0a44ca14, type: 3}
+      propertyPath: batteryDrainRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114101202544116884, guid: 0ddea81a21def2441b61569e0a44ca14, type: 3}
       propertyPath: batteryDrainInterval
       value: 1
       objectReference: {fileID: 0}
