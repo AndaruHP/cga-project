@@ -7349,7 +7349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d87fecbf09c1544a9c333ff71f62b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfObjectsToRender: 14
+  numberOfObjectsToRender: 20
 --- !u!4 &1711950843
 Transform:
   m_ObjectHideFlags: 0
