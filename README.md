@@ -22,3 +22,5 @@ Group 3:
 - Jessen Vallensio - 00000076210
 - Teuku Fazariz Basya - 00000076122
 - Vincentius Devon Tanuardi - 00000068985
+
+  Build link: https://drive.google.com/drive/folders/1BhlT7K1IAf5fYvp94kzO21QgWegbv0qu?usp=sharing 
