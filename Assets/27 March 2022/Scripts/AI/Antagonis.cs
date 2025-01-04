@@ -23,6 +23,10 @@ public class Antagonis : MonoBehaviour
     private Animator animator;
     private int patrolIndex;
 
+    [Header("Combat Settings")]
+    public float attackDamage = 10f;    // Customizable damage
+    public float attackRange = 1f;      // Customizable attack range
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -95,16 +99,16 @@ public class Antagonis : MonoBehaviour
             isAttack = true;
             nma.isStopped = true;
             currentAttackCooldown = attackCooldown;
-            animator.SetTrigger("AttackTrigger"); // Gunakan trigger untuk memulai animasi serangan
+            animator.SetTrigger("AttackTrigger");
 
-            // Cari pemain di sekitar musuh
-            Collider[] colliders = Physics.OverlapSphere(transform.position, 1f, playerMask); // Periksa dalam jangkauan serangan
+            // Updated to use customizable range and damage
+            Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange, playerMask);
             if (colliders.Length > 0)
             {
                 PlayerHealth playerHealth = colliders[0].GetComponent<PlayerHealth>();
                 if (playerHealth != null)
                 {
-                    playerHealth.TakeDamage(10); // Memberikan damage setelah serangan selesai
+                    playerHealth.TakeDamage(attackDamage); // Using the customizable damage value
                 }
             }
 

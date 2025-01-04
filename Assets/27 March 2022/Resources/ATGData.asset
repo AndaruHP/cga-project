@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ATGData
   m_EditorClassIdentifier: 
   walkSpeed: 3
-  chaseSpeed: 5
+  chaseSpeed: 4
   chaseTime: 7
-  radius: 8
+  radius: 10
   timeToWait: 15
   angle: 150
   hearValue: 0

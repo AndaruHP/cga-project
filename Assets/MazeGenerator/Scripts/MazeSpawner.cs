@@ -36,7 +36,6 @@ public class MazeSpawner : MonoBehaviour
 
     private BasicMazeGenerator mMazeGenerator = null;
     private ItemSpawner itemSpawner;
-    public GameObject ExitDoorPrefab;
 
     void Start()
     {
@@ -132,40 +131,18 @@ public class MazeSpawner : MonoBehaviour
 
         // Remove outer wall to create exit at top-right corner
         RemoveOuterWalls();
-
-        // Optionally, create a visual exit indicator
-        CreateExitIndicator();
         
         // After all maze elements are created
         GetComponent<NavMeshBuilder>()?.RebuildNavMesh();
 
         // After generating the maze and walls, spawn items
         SpawnItems();
-
-        // Generate Exit
-        InstantiateExitDoor();
     }
 
     /// <summary>
     /// Removes specific outer walls to create exit(s).
     /// </summary>
     /// 
-
-    void InstantiateExitDoor()
-    {
-        int exitRow = Rows - 1;
-        int exitColumn = Columns - 1;
-
-        float x = exitColumn * (CellWidth + (AddGaps ? 0.2f : 0));
-        float z = exitRow * (CellHeight + (AddGaps ? 0.2f : 0));
-
-        Vector3 exitPosition = new Vector3(36, 2, 38);
-
-        GameObject exitDoor = Instantiate(ExitDoorPrefab, exitPosition, Quaternion.identity) as GameObject;
-        exitDoor.transform.parent = transform;
-
-        exitDoor.transform.Rotate(0, 0, 0);
-    }
 
     private void RemoveOuterWalls()
     {
@@ -214,23 +191,6 @@ public class MazeSpawner : MonoBehaviour
     /// <summary>
     /// (Optional) Instantiates a visual indicator for the exit.
     /// </summary>
-    private void CreateExitIndicator()
-    {
-        // TEST 2 COIN
-        // // Menempatkan GoalPrefab di posisi exit (pojok kanan atas)
-        // int exitRow = Rows - 1; // Baris terakhir (atas)
-        // int exitColumn = Columns - 1; // Kolom terakhir (kanan)
-
-        // float x = exitColumn * (CellWidth + (AddGaps ? .2f : 0));
-        // float z = exitRow * (CellHeight + (AddGaps ? .2f : 0));
-
-        // if (GoalPrefab != null)
-        // {
-        //     GameObject exitIndicator = Instantiate(GoalPrefab, new Vector3(x, 1, z), Quaternion.identity) as GameObject;
-        //     exitIndicator.transform.parent = transform;
-        //     Debug.Log($"Exit indicator placed at ({exitRow}, {exitColumn}).");
-        // }
-    }
 
     private void AddNavMeshObstacle(GameObject wall)
     {
