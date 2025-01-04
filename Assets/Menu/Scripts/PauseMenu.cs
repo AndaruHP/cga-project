@@ -70,6 +70,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void Retry()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.LoadLastScene();
+        }
+        else
+        {
+            Debug.LogError("GameManager instance not found.");
+        }
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quitting game...");

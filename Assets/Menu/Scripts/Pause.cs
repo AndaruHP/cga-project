@@ -80,4 +80,23 @@ public class Pause : MonoBehaviour
         SceneManager.LoadScene("Menu");
         Time.timeScale = 1f;
     }
+
+    public void Retry()
+    {
+    if (GameManager.Instance != null)
+        {
+        // Update the last scene index to current scene before loading
+        GameManager.Instance.UpdateLastScene();
+        GameManager.Instance.LoadLastScene();
+        
+        // Reset time scale and unpause
+        Time.timeScale = 1f;
+        paused = false;
+        }
+    else
+        {
+        Debug.LogError("GameManager instance not found.");
+        }
+    }
+
 }
